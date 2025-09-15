@@ -7,8 +7,6 @@ from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.service import Service
 from OpenTextTask1.Pages.SignupPage_Locators import SignupPageLocators
 
-
-
 # This is a Page Object for a Free Trial sign-up form.
 # It encapsulates all the web elements and methods related to this page.
 # It's a key part of the Page Object Model (POM) pattern.
@@ -18,12 +16,23 @@ class SignupPage:
         # The constructor receives the WebDriver instance from the test.
         self.driver = driver
 
+    def accept_cookies(self):
+        self.driver.implicitly_wait(2)
+        self.driver.find_element(*SignupPageLocators.accept_cookies_locator).click()
 
     def fill_form(self, email_address, confirm_email, password, confirm_password):
+        self.driver.implicitly_wait(3)
+        self.driver.execute_script("window.scrollBy(0, 500);")
+        self.driver.implicitly_wait(5)
         self.driver.find_element(*SignupPageLocators.email_locator).send_keys(username)
+        self.driver.implicitly_wait(5)
         self.driver.find_element(*SignupPageLocators.confirm_email_locator).send_keys(username)
+        self.driver.implicitly_wait(5)
+        self.driver.execute_script("window.scrollBy(0, 500);")
         self.driver.find_element(*SignupPageLocators.passowrd_locator).send_keys(password)
+        self.driver.implicitly_wait(5)
         self.driver.find_element(*SignupPageLocators.confirm_password_locator).send_keys(password)
+        self.driver.implicitly_wait(5)
 
     def click_freeTrial(self):
         element = self.driver.find_element(*SignupPageLocators.claim_free_trail_locator)
